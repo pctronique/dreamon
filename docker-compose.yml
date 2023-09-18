@@ -1,0 +1,75 @@
+# Adopt version 2 syntax:
+#   https://docs.docker.com/compose/compose-file/#/versioning
+version: '3.27'
+
+services:
+###########################
+# Setup the PHP container
+###########################
+    react:
+        build: .docker/react
+        container_name: ${NAME_REACT_CONTAINER}
+        restart: always
+        tty: true
+        stdin_open: true
+        depends_on:
+            - mongo
+        volumes:
+            #- ./.docker/config/connection_mongo.json:/home/project/config/connection_mongo.json:rw
+            #- ./.docker/config/config_email.json:/home/project/config/config_email.json:rw
+            - ./.docker/react/startserver:/etc/init.d/startserver:rw
+            - ./.docker/react/updateProject.sh:/home/updateProject.sh:rw
+            - ./.env:/home/.env:rw
+            - ./project:/home/project:rw
+            - ./projecttmp/logs/pm2:/root/.pm2/logs/:rw
+            - ./projecttmp/logs/react:/home/projecttmp/logs/react:rw
+        ports:
+            - ${VALUE_REACT_PORT}:3000
+        
+###########################
+# Setup the mongo container
+###########################
+    mongo:
+        image: mongo:${VALUE_SGBD_VERSION}
+        container_name: ${NAME_SGBD_CONTAINER}
+        restart: always
+        volumes:
+            - ./projecttmp/mongo_data:/data/db
+            - ./projecttmp/mongo-seed/:/mongo-seed/
+            - ./.env:/mongo-seed/.env
+            - ./.docker/mongo/import.sh:/mongo-seed/import.sh
+            # start data
+            - ./.docker/sgbd_data/people.json:/mongo-seed/people.json
+            # end data
+        environment:
+            - MONGO_INITDB_DATABASE=${MONGO_DATABASE}
+            - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+            - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+        ports:
+            - ${VALUE_SGBD_PORT}:27017
+        
+###########################
+# Setup the mongo-express container
+###########################
+    mongo-express:
+        image: mongo-express:${VALUE_MOEXPRESS_VERSION}
+        container_name: ${NAME_MOEXPRESS_CONTAINER}
+        restart: always
+        environment:
+            - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_ROOT_USERNAME}
+            - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_ROOT_PASSWORD}
+            - ME_CONFIG_MONGODB_URL=mongodb://${MONGO_ROOT_USERNAME}:${MONGO_ROOT_PASSWORD}@mongo:27017
+        links:
+            - mongo
+        ports:
+            - ${VALUE_MOEXPRESS_PORT}:8081
+        
+###########################
+# Setup the mailhog container
+###########################
+    mailhog:
+        image: mailhog/mailhog:${VALUE_MAILHOG_VERSION}
+        container_name: ${NAME_MAILHOG_CONTAINER}
+        restart: always
+        ports:
+            - ${VALUE_MAILHOG_DISPLAY_PORT}:8025

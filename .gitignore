@@ -1,0 +1,12 @@
+/project/node_modules/
+/project/config/connection_server.json
+/project/config/connection_mongo.json
+/project/config/config_email.json
+/project/package-lock.json
+/project/updateProject.sh
+/projecttmp/
+/.env
+/project/projectreact/node_modules/
+/project/projectreact/npm-debug.log
+/project/projectreact/yarn-error.log
+/project/projectreact/package-lock.json
