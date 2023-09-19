@@ -2,7 +2,7 @@
     "type"   : "mongodb",
     "host"   : "mongo",
     "port"   : 27017,
-    "name"   : "drea",
+    "name"   : "dreamon",
     "user"   : "root",
     "pass"   : "secret"
 }

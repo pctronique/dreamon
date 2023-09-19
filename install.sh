@@ -6,12 +6,6 @@ mkdir -p projecttmp/mongo_data
 touch projecttmp/logs/react/react_out.log
 touch projecttmp/logs/react/react_error.log
 
- # creation du fichier .gitignore
-#if [ ! -e project/.gitignore ]
-#then
-#    cp .docker/config/gitignore_angular project/.gitignore
-#fi
-
 chmod 777 -R project
 chmod 777 -R projecttmp
 

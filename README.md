@@ -1,4 +1,5 @@
-# drea (Docker REAct)
+# dreamon (Docker REAct)
+Version 1.0.0
 
 <details>
   <summary>Table des matières</summary>
@@ -32,15 +33,17 @@
             <li><a href="#dans-dockerfile">Dans Dockerfile</a></li>
         </ul>
     </li>
+    <li><a href="#logs-et-info-conteneur-docker">Logs et info conteneur (Docker)</a></li>
     <li><a href="#le-dossier-du-projet">Le dossier du projet</a></li>
     <li>
         <a href="#mini-projet-react">Mini projet react</a>
         <ul>
-            <li><a href="#le-fichier-env">Le fichier .env</a></li>
+            <li><a href="#packages-installés-dans-le-mini-projet">Packages installés dans le mini-projet</a></li>
         </ul>
     </li>
     <li><a href="#les-commandes-angular-dans-le-mini-projet">Les commandes angular dans le mini-projet</a></li>
     <li><a href="#visualiser-les-messages-de-la-console-ou-les-logs">Visualiser les messages de la console ou les logs</a></li>
+    <li><a href="#server-start-stop-restart">Server start|stop|restart</a></li>
   </ol>
 </details>
 
@@ -50,7 +53,7 @@ La base docker pour un projet react. Ceci est une base, vous pouvez le modifier 
 > Vous devez installer docker pour pouvoir l'utiliser.
 
 ### L'avantage d'utiliser docker
-Lorsque vos faites un projet avec docker vous devez transmettre la totalité du projet, les fichiers de création des conteneurs et le code. Pour ce projet, vous devez transmettre le contenu en totalité du dossier "**drea**" (**que vous pouvez et surtout devez le renommer au nom de votre projet**) dans un git.<br />
+Lorsque vos faites un projet avec docker vous devez transmettre la totalité du projet, les fichiers de création des conteneurs et le code. Pour ce projet, vous devez transmettre le contenu en totalité du dossier "**dreamon**" (**que vous pouvez et surtout devez le renommer au nom de votre projet**) dans un git.<br />
 Les avantages :<br />
 * Pas de programme à installer sur votre pc (à part docker et un éditeur ou IDE)
 * Travailler à plusieurs avec les mêmes conteneurs à l'identique
@@ -112,11 +115,11 @@ Pour la création du conteneur docker pour le projet.
 ### Le fichier .env
 Modifier le contenu du fichier "**.env.example**" :
 ```
-NAME_PROJECT=drea
-NAME_REACT_CONTAINER=drea_react
-NAME_SGBD_CONTAINER=drea_mongo
-NAME_MOEXPRESS_CONTAINER=drea_moexpress
-NAME_MAILHOG_CONTAINER=drea_mailhog
+NAME_PROJECT=dreamon
+NAME_REACT_CONTAINER=dreamon_react
+NAME_SGBD_CONTAINER=dreamon_mongo
+NAME_MOEXPRESS_CONTAINER=dreamon_moexpress
+NAME_MAILHOG_CONTAINER=dreamon_mailhog
 ```
 Par le nom de votre projet, par exemple 'nameProject' :
 ```
@@ -230,6 +233,40 @@ $ ./bin/terminal.sh
 # apt install name_package
 ```
 
+## Logs et info conteneur (Docker)
+Vous pouvez avoir besoin de visualiser les logs d'un conteneur si celui-ci ne démarre pas, pour trouver le problème par exemple. Pour ce faire :
+```
+$ ./bin/container_logs.sh
+Options:
+   --nodejs
+   --mongo
+   --mongo-express
+   --mailhog
+   --helps
+   [id ou nom du conteneur]
+$ ./bin/container_logs.sh --nodejs
+```
+Vous pouvez avoir besoin d'information sur l'un des conteneurs, pour trouver sa version par exemple. Pour ce faire :
+```
+$ ./bin/container_info.sh 
+Options:
+   --nodejs
+   --mongo
+   --mongo-express
+   --mailhog
+   --helps
+   [id ou nom du conteneur]
+$ ./bin/container_info.sh --mailhog
+```
+<br />
+> [!WARNING]
+> Il contient beaucoup d'information sous un format json et ce n'est pas facile de le lire sur le terminal, il est préférable de le mettre dans un fichier json.
+<br />
+Pour mettre les informations dans un fichier json :
+```
+$ ./bin/container_info.sh --mailhog >> mailhog_info.json
+```
+
 ### Dans Dockerfile
 Quand vous installez un package, vous devez aussi le rajouter dans le fichier "**.docker/react/Dockerfile**", pour le conserver. Vous devez ajouter la ligne suivante à la fin du fichier avec le bon nom de package.
 ```
@@ -255,6 +292,16 @@ Quand vous allez redémarrer le pc, il faudra relancer le serveur react avec la 
 $ ./start.sh
 ```
 
+### Packages installés dans le mini-projet
+Lors de la création du projet, il y a l'installation de package que vous pouvez retrouver dans le fichier "**./bin/createProject.sh**"
+```
+docker exec $NAME_REACT_CONTAINER bash -c "cd $FOLDER_PROJECT_REACT/ && npm install nodemailer"
+docker exec $NAME_REACT_CONTAINER bash -c "cd $FOLDER_PROJECT_REACT/ && npm install mongodb"
+```
+> [!NOTE]
+> Vous pouvez les retirer si vous en avez pas besoin.
+
+
 ## Les commandes react dans le mini-projet
 Vous allez avoir besoin de faire des commandes angular sur votre code, pour ce faire :
 ```
@@ -265,5 +312,20 @@ $ ./bin/terminal.sh
 
 ## Visualiser les messages de la console ou les logs
 Les messages de la console sont transmis dans un fichier et ne sont pas visibles sur le terminal.<br />
-* Message sur la console dans le fichier : "**projecttmp/logs/react/react_out.log**".
-* Message d'erreur sur la console dans le fichier : "**projecttmp/logs/react/react_error.log**".
+* Message sur la console dans le fichier : "**projecttmp/logs/angular/ng_out.log**".
+* Message d'erreur sur la console dans le fichier : "**projecttmp/logs/angular/ng_error.log**".
+
+## Server start|stop|restart
+Vous pouvez avoir besoin de redémarrer votre serveur, il est possible de le faire facilement avec une commande :
+```
+$ ./bin/server.sh 
+Options:
+   start
+   stop
+   restart
+   reload
+   --helps
+$ ./bin/server.sh start
+$ ./bin/server.sh stop
+$ ./bin/server.sh restart
+```
