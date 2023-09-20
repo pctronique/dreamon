@@ -285,7 +285,7 @@ Lors de l'installation, il démarre le serveur react du mini-projet sur '**local
 <br /><img src="./images/Screenshot_20230918_103605.png" alt="exemple angular server" width="300" height="175"><br />
 Vous pouvez modifier le démarrage de votre projet dans le fichier "**.env.example**" et aussi dans le fichier "**.env**" :
 ```
-FOLDER_PROJECT_REACT=projectreact
+FOLDER_PROJECT_REACT=www
 ```
 Quand vous allez redémarrer le pc, il faudra relancer le serveur react avec la commande :
 ```
@@ -306,7 +306,7 @@ docker exec $NAME_REACT_CONTAINER bash -c "cd $FOLDER_PROJECT_REACT/ && npm inst
 Vous allez avoir besoin de faire des commandes angular sur votre code, pour ce faire :
 ```
 $ ./bin/terminal.sh
-# cd projectreact/
+# cd www/
 # npx generate-react-cli component Box
 ```
 

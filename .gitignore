@@ -6,7 +6,7 @@
 /project/updateProject.sh
 /projecttmp/
 /.env
-/project/projectreact/node_modules/
-/project/projectreact/npm-debug.log
-/project/projectreact/yarn-error.log
-/project/projectreact/package-lock.json
+/project/www/node_modules/
+/project/www/npm-debug.log
+/project/www/yarn-error.log
+/project/www/package-lock.json
