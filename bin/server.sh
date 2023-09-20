@@ -5,7 +5,7 @@ done < ${0%/*}/../.env
 
 d_start () {
    docker container start $NAME_REACT_CONTAINER
-   docker exec $NAME_REACT_CONTAINER /etc/init.d/startserver start & 
+   #docker exec $NAME_REACT_CONTAINER /etc/init.d/startserver start & 
 }
 
 d_stop () {

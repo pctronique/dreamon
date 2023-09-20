@@ -287,10 +287,6 @@ Vous pouvez modifier le démarrage de votre projet dans le fichier "**.env.examp
 ```
 FOLDER_PROJECT_REACT=www
 ```
-Quand vous allez redémarrer le pc, il faudra relancer le serveur react avec la commande :
-```
-$ ./start.sh
-```
 
 ### Packages installés dans le mini-projet
 Lors de la création du projet, il y a l'installation de package que vous pouvez retrouver dans le fichier "**./bin/createProject.sh**"
