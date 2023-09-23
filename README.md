@@ -312,14 +312,14 @@ Lors de l'installation, il démarre le serveur react du mini-projet sur '**local
 <br /><img src="./images/Screenshot_20230918_103605.png" alt="exemple angular server" width="300" height="175"><br />
 Vous pouvez modifier le démarrage de votre projet dans le fichier "**.env.example**" et aussi dans le fichier "**.env**" :
 ```
-FOLDER_PROJECT_REACT=www
+FOLDER_PROJECT=www
 ```
 
 ### Packages installés dans le mini-projet
 Lors de la création du projet, il y a l'installation de package que vous pouvez retrouver dans le fichier "**./bin/createProject.sh**"
 ```
-docker exec $NAME_PROJECT_CONTAINER bash -c "cd $FOLDER_PROJECT_REACT/ && npm install nodemailer"
-docker exec $NAME_PROJECT_CONTAINER bash -c "cd $FOLDER_PROJECT_REACT/ && npm install mongodb"
+docker exec $NAME_PROJECT_CONTAINER bash -c "cd $FOLDER_PROJECT/ && npm install nodemailer"
+docker exec $NAME_PROJECT_CONTAINER bash -c "cd $FOLDER_PROJECT/ && npm install mongodb"
 ```
 > [!NOTE]
 > Vous pouvez les retirer si vous en avez pas besoin.

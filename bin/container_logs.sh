@@ -22,7 +22,7 @@ else
     container=$@
     case "$container" in
         --nodejs)
-            container=$NAME_ANGULAR_CONTAINER
+            container=$NAME_PROJECT_CONTAINER
             ;;
     
         --mongo)

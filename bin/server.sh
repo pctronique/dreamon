@@ -1,3 +1,4 @@
+#!/bin/bash
 while read line  
 do   
    export $line
@@ -40,7 +41,7 @@ else
          d_restart
          ;;
 
-      helps)
+      *)
          echo "Usage: ./bin/server.sh {start|stop|restart|reload|helps}"
          exit 1
          ;;
