@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_PROJECT_DEF="donomo"
+NAME_PROJECT_DEF="dreamon"
 FICHIER_ENV_EXA="${0%/*}/../.env.example"
 FICHIER_ENV="${0%/*}/../.env"
 FILE_CONFIG="${0%/*}/../.docker/config/package.json"
