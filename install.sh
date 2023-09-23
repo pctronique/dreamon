@@ -1,3 +1,12 @@
+./bin/install/start_install.sh
+
+#./bin/install/message.sh
+
+if [ ! -e .env ]
+then
+    exit 1
+fi
+
 mkdir -p projecttmp
 mkdir -p projecttmp/logs
 mkdir -p projecttmp/logs/react
@@ -9,16 +18,13 @@ touch projecttmp/logs/react/react_error.log
 chmod 777 -R project
 chmod 777 -R projecttmp
 
-# creation du fichier .env
-if [ ! -e .env ]
-then
-    cp .env.example .env
+# creation du docker du projet
+if docker-compose up --build -d ; then
+    ./bin/import_sgbd.sh
+
+    ./bin/createProject.sh
+    #./bin/updateProject.sh
+    ./start.sh
+
+    ./bin/install/end_install.sh
 fi
-
-docker-compose up -d
-
-./bin/import_sgbd.sh
-
-./bin/createProject.sh
-#./bin/updateProject.sh
-./start.sh
