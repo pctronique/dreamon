@@ -3,4 +3,4 @@ do
    export $line
 done < ${0%/*}/.env
 cd /home/project/$FOLDER_PROJECT
-npm start >> ../../projecttmp/logs/react/react_out.log 2>> ../../projecttmp/logs/react/react_error.log
+npm start >> /var/log/react/react_out.log 2>> /var/log/react/react_error.log

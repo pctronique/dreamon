@@ -30,8 +30,5 @@ cp "$FILE_DATA_DOCKER/people.json" "$FILE_DATA/people.json"
 
 cp "$FILE_CONFIG_DOCKER/config_email.json" "$FILE_CONFIG/config_email.json"
 cp "$FILE_CONFIG_DOCKER/connection_mongo.json" "$FILE_CONFIG/connection_mongo.json"
-cp "$FILE_CONFIG_DOCKER/connection_server.json" "$FILE_CONFIG/connection_server.json"
-
-cp "$FILE_CONFIG_DOCKER/package.json" "$FOLDER_BASE/project/$FOLDER_PROJECT/package.json"
 
 exit 0

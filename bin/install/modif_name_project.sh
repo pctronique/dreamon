@@ -13,9 +13,9 @@ do
    export $line
 done < $FICHIER_ENV_EXA
 
-FILE_CONFIG="$FOLDER_BASE/project/$FOLDER_PROJECT/package.json"
+#FILE_CONFIG="$FOLDER_BASE/project/$FOLDER_PROJECT/package.json"
 
-sed -i "s/\"name\": \"nameproject\"/\"name\": \"$NAME_PROJECT\"/" $FILE_CONFIG
-sed -i "s/nameserverjs/$NAME_JS_SERVER/" $FILE_CONFIG
+#sed -i "s/\"name\": \"nameproject\"/\"name\": \"$NAME_PROJECT\"/" $FILE_CONFIG
+#sed -i "s/nameserverjs/$NAME_JS_SERVER/" $FILE_CONFIG
 
 exit 0

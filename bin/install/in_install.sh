@@ -8,7 +8,7 @@ do
    export $line
 done < ${0%/*}/../../.env
 
-cp ${0%/*}/../../.docker/config/.gitignore ${0%/*}/../../project/www/.gitignore
+cp ${0%/*}/../../.docker/config/gitignore_angular ${0%/*}/../../project/www/.gitignore
 
 PACK_JSON_LINE1="$FOLDER_PROJECT"
 PACK_JSON_LINE1_REPLACE="$NAME_PROJECT"
