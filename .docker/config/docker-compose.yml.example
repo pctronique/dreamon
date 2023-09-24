@@ -21,7 +21,6 @@ services:
             - ./.docker/react/updateProject.sh:/home/updateProject.sh:rw
             - ./.env:/home/.env:rw
             - ./project:/home/project:rw
-            - ./projecttmp/logs/pm2:/root/.pm2/logs/:rw
             - ./projecttmp/logs/react:/home/projecttmp/logs/react:rw
         ports:
             - ${VALUE_PROJECT_PORT}:3000
@@ -45,8 +44,6 @@ services:
             - MONGO_INITDB_DATABASE=${SGBD_DATABASE}
             - MONGO_INITDB_ROOT_USERNAME=${SGBD_ROOT_USERNAME}
             - MONGO_INITDB_ROOT_PASSWORD=${SGBD_ROOT_PASSWORD}
-        ports:
-            - ${VALUE_SGBD_PORT}:27017
         
 ###########################
 # Setup the mongo-express container
