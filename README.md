@@ -20,7 +20,8 @@ Version 1.0.0
     <li>
         <a href="#création-du-conteneur-docker">Création du conteneur (Docker)</a>
         <ul>
-            <li><a href="#le-fichier-env">Le fichier .env</a></li>
+            <li><a href="#pour-windows">Pour Windows</a></li>
+            <li><a href="#entrer-le-nom-du-projet">Entrer le nom du projet</a></li>
             <li><a href="#les-ports-utilisés-par-docker">Les ports utilisés par docker</a></li>
             <li><a href="#modifier-l-adresse-de-port">Modifier l'adresse de port</a></li>
             <li><a href="#installer-le-conteneur">Installer le conteneur</a></li>
@@ -99,9 +100,17 @@ Il est possible d'entrer des tables lors de sa création, pour se faire il faudr
 J'ai mis en place un exemple avec la table people "**people.json**" :
 ```
 # start data
-- ./.docker/sgbd_data/people.json:/mongo-seed/people.json
+- ./config/sgbd_data/people.json:/mongo-seed/people.json
 # end data
 ```
+
+<br />
+
+> [!IMPORTANT]
+> Le conteneur du mongodb ne démarre pas sur Windows, je vais essayer de réparer ce problème. Je travaille surtout sur Linux.
+
+<br />
+
 <br /><img src="./images/Screenshot_20230918_103643.png" alt="exemple nodejs server" width="300" height="175"><br />
 
 > [!NOTE]
@@ -121,7 +130,7 @@ Ceci est une petite partie des [SGBD](https://fr.wikipedia.org/wiki/Syst%C3%A8me
 
 ### Les fichiers de configurations
 Vous pouvez configurer votre serveur ou le php :
-* connection_server.json : dans le dossier ".docker/config/"
+* connection_server.json : dans le dossier "config/"
 
 > [!WARNING]
 > Si vous modifiez les configurations, il faudra redémarrer le conteneur : " [Server start|stop|restart](#server-start-stop-restart) ". <br />
@@ -132,11 +141,20 @@ Vous pouvez configurer votre serveur ou le php :
 Vous devez avoir installé Docker. 
 Pour la création du conteneur docker du projet.
 
-### Le fichier .env
+### Pour Windows
+Testé sur Windows WSL2 et Ubuntu.
+Vous devrez passer sur le prompt de linux ($) :
+```
+> bash
+$ [entrer votre commande Linux]
+```
+
+### Entrer le nom du projet
 Pour concevoir le projet avec le nom de "**nameProject**" :
 ```
-$ ./bin/name.sh --name=nameProject
+$ ./bin/config.sh
 ```
+<br /><img src="./images/Screenshot_20230926_091734.png" alt="exemple angular server" width="300" height="70"><br />
 Ceci va créer le fichier "**.env**" avec le nom du projet pour les conteneurs.
 
 ### Les ports utilisés par docker
@@ -171,6 +189,14 @@ tcp   LISTEN 0      4096                                   0.0.0.0:3000         
 Je ne pourrais pas utiliser les ports : 5353, 34968, 27020, 8080, 8020, 3000.
 
 ### Modifier l'adresse de port
+Vous pouvez modifier les ports pour les conteneurs avec la commande :
+```
+$ ./bin/config.sh
+```
+
+> [!NOTE]
+> Si vous n'avez pas entré le nom du projet, il vous sera demandé, sinon il demande seulement les numéros des ports.
+
 Si vous avez besoin de modifier le port, merci de le faire dans le fichier "**.env**".<br />
 > [!WARNING]
 > Ne surtout pas le faire dans le fichier "**.env.example**".
@@ -182,12 +208,17 @@ Si vous avez besoin de modifier le port, merci de le faire dans le fichier "**.e
 <br />Un port de votre pc peut être utilisé par un autre projet, il faudra donc modifier celui-ci. Ce qui est vrai sur un pc, ne le sera pas sur les autres, donc on ne modifit pas les valeurs dans le fichier "**.env.example**".<br />
 Il est préférable d'incrémenter à l'identique les ports du projet.<br />
 Si je dois incrémenter de 9 un des ports (je conserve la valeur d'incrémentation la plus haute), je le fais aussi pour les autres dans le fichier "**.env**". Ceci évite de se perdre dans les ports disponibles.<br />
-Exemple :<br />
 ```
-VALUE_PROJECT_PORT=3009
-VALUE_SGBD_PORT=27029
+$ ./bin/config.sh
+```
+
+<br /><img src="./images/Screenshot_20230926_091837.png" alt="exemple angular server" width="300" height="70"><br />
+
+Exemple (modifier directement le fichier "**.env**") :<br />
+```
+VALUE_PROJECT_PORT=89
 VALUE_SGBD_DISPLAY_PORT=8089
-VALUE_MAIL_DISPLAY_DISPLAY_PORT=8029
+VALUE_MAIL_DISPLAY_PORT=8029
 ```
 
 ### Installer le conteneur
@@ -196,8 +227,11 @@ Vous pouvez créer votre conteneur.
 $ ./install.sh
 ```
 
+> [!NOTE]
+> Si vous n'avez pas entré le nom du projet, il vous sera demandé, idem pour les numéros des ports.
+
 > [!WARNING]
-> Ne surtout pas faire la commande '$ docker-compose up --build -d'.
+> Ne surtout pas faire la commande '$ docker compose up -d'.
 
 <br />
 
@@ -328,8 +362,8 @@ docker exec $NAME_PROJECT_CONTAINER bash -c "cd $FOLDER_PROJECT/ && npm install 
 
 ### Les fichiers de configurations du projet
 Vous pouvez configurer celui-ci :
-* config_email.json : dans le dossier ".docker/config/"
-* connection_mongo.json : dans le dossier ".docker/config/"
+* config_email.json : dans le dossier "config/"
+* connection_mongo.json : dans le dossier "config/"
 
 > [!WARNING]
 > Ne pas modifier les fichiers "**config_sgbd.php**" et "**connection_mongo.php**" du dossier "**project/www/config**" qui sont et resteront vide. 
