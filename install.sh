@@ -49,22 +49,28 @@ rm -f -r "/tmp/error_chmod_docker.log"
 # creation du docker du projet
 if docker compose up -d ; then
 
-  ${0%/*}/bin/import_sgbd.sh
+  if ! ${0%/*}/bin/install/import_sgbd.sh ; then
+    exit 1
+  fi
 
   if [ $TYPE_INSTALL_PROJECT = "install" ]
   then
-    if ! ${0%/*}/bin/createProject.sh ; then
+    if ! ${0%/*}/bin/install/createProject.sh ; then
       exit 1
     fi
   else
-    if ! ${0%/*}/bin/updateProject.sh ; then
+    if ! ${0%/*}/bin/install/updateProject.sh ; then
       exit 1
     fi
   fi
 
-  ${0%/*}/start.sh
+  if ! ${0%/*}/start.sh ; then
+    exit 1
+  fi
 
-  rm -f -r "${0%/*}/tmp_install"
+  if ! rm -f -r "${0%/*}/tmp_install" ; then
+    exit 1
+  fi
 
   ${0%/*}/bin/install/display_web.sh
 
