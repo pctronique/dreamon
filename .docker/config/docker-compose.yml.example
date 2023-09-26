@@ -22,6 +22,7 @@ services:
             - ./.env:/home/.env:rw
             - ./project:/home/project:rw
             - ./projecttmp/logs/react:/var/log/react:rw
+            - ./projecttmp/tmp/react:/var/tmp/react:rw
         ports:
             - ${VALUE_PROJECT_PORT}:3000
         
