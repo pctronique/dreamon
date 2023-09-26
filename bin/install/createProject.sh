@@ -31,11 +31,18 @@ fi
 if ! ${0%/*}/in_install.sh ; then
     exit 1
 fi
-if ! ${0%/*}/project_bash.sh "cd $FOLDER_PROJECT/ && npm install nodemailer" ; then
-    exit 1
-fi
-if ! ${0%/*}/project_bash.sh "cd $FOLDER_PROJECT/ && npm install mongodb" ; then
-    exit 1
+
+if [ -e ${0%/*}/packages_install.list ]
+then
+  while read line  
+  do   
+    if [ ! -z "$line" ]
+    then
+      if ! ${0%/*}/project_bash.sh "cd $FOLDER_PROJECT/ && npm install $line" ; then
+        exit 1
+      fi
+    fi
+  done < ${0%/*}/packages_install.list
 fi
 
 exit 0
