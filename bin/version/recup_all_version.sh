@@ -16,5 +16,5 @@ do
    export $line
 done < "${0%/*}/../../$PROJECT_TMP_MAIN/env_version.txt"
 
-sed -i "s/FROM node:latest/FROM node:$NODEJS_VERSION-latest/" $FOLDER_DOCKER/$DOCKER_FOLDER_PROJECT/Dockerfile
+sed -i "s/FROM node:latest/FROM node:$NODEJS_VERSION/" $FOLDER_DOCKER/$DOCKER_FOLDER_PROJECT/Dockerfile
 sed -i "s/RUN npm install -g create-react-app/RUN npm install -g create-react-app@$REACT_VERSION -g/" $FOLDER_DOCKER/$DOCKER_FOLDER_PROJECT/Dockerfile
