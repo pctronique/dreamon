@@ -7,13 +7,19 @@ if [ -e ${0%/*}/../../tmp_install/type_install ]
 then
   while read line  
   do   
-    export $line
+    if [ ! -z "$line" ]
+    then
+        export $line
+    fi
   done < ${0%/*}/../../tmp_install/type_install
 fi
 
 while read line  
 do   
-   export $line
+    if [ ! -z "$line" ]
+    then
+        export $line
+    fi
 done < ${0%/*}/../../.env
 
 if [ -z "$IS_CREATE_FOLDER" ]
