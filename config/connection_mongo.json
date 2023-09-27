@@ -1,8 +1,0 @@
-{
-    "type"   : "mongodb",
-    "host"   : "mongo",
-    "port"   : 27017,
-    "name"   : "dreamon",
-    "user"   : "root",
-    "pass"   : "secret"
-}
