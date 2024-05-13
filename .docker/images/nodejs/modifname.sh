@@ -10,7 +10,7 @@ then
     NODE_NAME_PROJECT=project
 fi
 
-VAR_NAME_DEF=$(sed -ne "s/\\\"name\": \".*\",/\0/p" ${NODE_FOLDER_PROJECT}/package.json)
+VAR_NAME_DEF=$(sed -ne "0,/\\\"name\": \".*\",/s//\0/p" ${NODE_FOLDER_PROJECT}/package.json)
 VAR_MODIF_NAME="\"name\": \"${NODE_NAME_PROJECT}\","
 
 if [ -e ${NODE_FOLDER_PROJECT}/package.json ]
