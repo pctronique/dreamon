@@ -10,8 +10,11 @@ then
     NODE_NAME_PROJECT=project
 fi
 
+VAR_NAME_VAL=$( array=( $(echo "${NODE_NAME_PROJECT}" | grep -E -o "[a-zA-Z0-9]*") ); IFS=''; echo "${array[*]}" )
+VAR_NAME_LOW=$( echo "${VAR_NAME_VAL}" | tr '[:upper:]' '[:lower:]')
+
 VAR_NAME_DEF=$(sed -ne "0,/\\\"name\": \".*\",/s//\0/p" ${NODE_FOLDER_PROJECT}/package.json)
-VAR_MODIF_NAME="\"name\": \"${NODE_NAME_PROJECT}\","
+VAR_MODIF_NAME="\"name\": \"${VAR_NAME_LOW}\","
 
 if [ -e ${NODE_FOLDER_PROJECT}/package.json ]
 then
